@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CobreCal | Ferramentas para Climatização</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+<header>
+
+    <div class="navbar">
+
+        <div class="logo">
+            Cobre<span>Cal</span>
+        </div>
+
+        <nav>
+            <a href="#cobre">Cobre</a>
+            <a href="#btus">BTUs</a>
+        </nav>
+
+    </div>
+
+</header>
+
+
+<section class="hero">
+
+    <h1>
+        Ferramentas inteligentes para
+        <span>climatização</span>
+    </h1>
+
+    <p>
+        Calcule cobre, conversões de peso e comprimento
+        e dimensione a capacidade do seu ar-condicionado
+        de forma rápida e prática.
+    </p>
+
+</section>
+
+
+<div class="container">
+
+    <div class="cards">
+
+
+        <!-- ======================= -->
+        <!-- CALCULADORA DE COBRE -->
+        <!-- ======================= -->
+
+        <div class="card" id="cobre">
+
+            <h2>🔧 Calculadora de Cobre</h2>
+
+            <p>
+                Converta metros de cobre em quilogramas
+                ou quilogramas em metros.
+            </p>
+
+
+            <form method="POST">
+
+                <input
+                    type="hidden"
+                    name="tipo"
+                    value="cobre"
+                >
+
+
+                <label>
+                    Tipo de conversão
+                </label>
+
+                <select name="operacao">
+
+                    <option value="metros_kg">
+                        Metros → Kg
+                    </option>
+
+                    <option value="kg_metros">
+                        Kg → Metros
+                    </option>
+
+                </select>
+
+
+                <label>
+                    Bitola
+                </label>
+
+                <select name="bitola">
+
+                    <option value="1/4">
+                        1/4" — 0,130 kg/m
+                    </option>
+
+                    <option value="3/8">
+                        3/8" — 0,203 kg/m
+                    </option>
+
+                    <option value="1/2">
+                        1/2" — 0,283 kg/m
+                    </option>
+
+                    <option value="5/8">
+                        5/8" — 0,350 kg/m
+                    </option>
+
+                    <option value="3/4">
+                        3/4" — 0,423 kg/m
+                    </option>
+
+                    <option value="7/8">
+                        7/8" — 0,509 kg/m
+                    </option>
+
+                </select>
+
+
+                <label>
+                    Valor
+                </label>
+
+                <input
+                    type="number"
+                    name="valor"
+                    step="0.001"
+                    min="0"
+                    placeholder="Digite o valor"
+                    required
+                >
+
+
+                <button type="submit">
+                    Calcular cobre
+                </button>
+
+            </form>
+
+
+            {% if resultado_cobre %}
+
+            <div class="resultado">
+
+                <h3>Resultado</h3>
+
+                {% if resultado_cobre.operacao == "metros_kg" %}
+
+                    <p>
+                        Peso exato:
+                    </p>
+
+                    <div class="valor">
+                        {{ "%.3f"|format(resultado_cobre.peso_exato) }} kg
+                    </div>
+
+
+                    <div class="destaque">
+
+                        <p>
+                            Peso + 0,300 kg:
+                        </p>
+
+                        <div class="valor">
+                            {{ "%.3f"|format(resultado_cobre.peso_com_acrescimo) }} kg
+                        </div>
+
+                    </div>
+
+                {% else %}
+
+                    <p>
+                        Metros correspondentes:
+                    </p>
+
+                    <div class="valor">
+
+                        {{ "%.3f"|format(resultado_cobre.metros) }}
+
+                        m
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- ======================= -->
+        <!-- CALCULADORA DE BTUs -->
+        <!-- ======================= -->
+
+        <div class="card" id="btus">
+
+            <h2>❄️ Calculadora de BTUs</h2>
+
+            <p>
+                Estime a capacidade necessária para
+                climatizar um ambiente.
+            </p>
+
+
+            <form method="POST">
+
+                <input
+                    type="hidden"
+                    name="tipo"
+                    value="btus"
+                >
+
+
+                <label>
+                    Área do ambiente (m²)
+                </label>
+
+                <input
+                    type="number"
+                    name="area"
+                    step="0.1"
+                    min="1"
+                    placeholder="Ex: 20"
+                    required
+                >
+
+
+                <label>
+                    Número de pessoas
+                </label>
+
+                <input
+                    type="number"
+                    name="pessoas"
+                    min="1"
+                    value="1"
+                    required
+                >
+
+
+                <label>
+                    Incidência direta de sol
+                </label>
+
+                <select name="sol">
+
+                    <option value="nao">
+                        Não
+                    </option>
+
+                    <option value="sim">
+                        Sim
+                    </option>
+
+                </select>
+
+
+                <button type="submit">
+                    Calcular BTUs
+                </button>
+
+            </form>
+
+
+            {% if resultado_btus %}
+
+            <div class="resultado">
+
+                <h3>Resultado</h3>
+
+                <p>
+                    BTUs calculados:
+                </p>
+
+                <div class="valor">
+
+                    {{ "{:,.0f}".format(
+                        resultado_btus.btus_calculado
+                    ).replace(",", ".") }}
+
+                    BTUs
+
+                </div>
+
+
+                <div class="destaque">
+
+                    <p>
+                        Capacidade recomendada:
+                    </p>
+
+                    <div class="valor">
+
+                        {{ "{:,.0f}".format(
+                            resultado_btus.btus_recomendado
+                        ).replace(",", ".") }}
+
+                        BTUs
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    <p>
+        CobreCal © 2026 — Ferramentas para climatização
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>
