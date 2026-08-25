@@ -18,15 +18,15 @@
   "icons": [
     {
       "src": "/icons/icon-192.png",
-      "type": "image/png",
+      "type": "image/jpeg",
       "sizes": "192x192",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/icons/icon-512.png",
-      "type": "image/png",
+      "type": "image/jpeg",
       "sizes": "512x512",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     }
   ],
   "shortcuts": [
