@@ -1,0 +1,46 @@
+{
+  "short_name": "Cobrecal",
+  "name": "Cobrecal - Calculadora de Cobre",
+  "description": "Calculadora técnica para dimensionamento e cálculo de tubulação, refrigeração e conexões de cobre.",
+  "id": "/",
+  "start_url": "/",
+  "background_color": "#121316",
+  "theme_color": "#b86b43",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "categories": [
+    "utilities",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Calculadora",
+      "short_name": "Calcular",
+      "description": "Abrir a calculadora de cobre",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

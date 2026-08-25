@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 from calculadora import (
     metros_para_kg,
     kg_para_metros,
@@ -7,6 +7,29 @@ from calculadora import (
 
 app = Flask(__name__)
 
+
+# =========================================
+# ROTAS PWA (Manifest, Service Worker e Ícones)
+# =========================================
+
+@app.route("/manifest.json")
+def manifest():
+    return send_from_directory("static", "manifest.json")
+
+
+@app.route("/sw.js")
+def service_worker():
+    return send_from_directory("static", "sw.js")
+
+
+@app.route("/icons/<path:filename>")
+def custom_icons(filename):
+    return send_from_directory("static/icons", filename)
+
+
+# =========================================
+# ROTA PRINCIPAL DO APLICATIVO
+# =========================================
 
 @app.route("/", methods=["GET", "POST"])
 def inicio():

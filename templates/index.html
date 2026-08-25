@@ -11,17 +11,18 @@
         rel="stylesheet"
         href="{{ url_for('static', filename='css/style.css') }}"
     >
-    <!-- Vinculo com o Manifest -->
-<link rel="manifest" href="/manifest.json" />
+    
+    <!-- Vínculo com o Manifest -->
+    <link rel="manifest" href="/manifest.json" />
 
-<!-- Configuração de cores e temas móveis -->
-<meta name="theme-color" content="#b86b43" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Cobrecal" />
+    <!-- Configuração de cores e temas móveis -->
+    <meta name="theme-color" content="#b86b43" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="CobreCal" />
 
-<!-- Ícone para iOS (Apple) -->
-<link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+    <!-- Ícone para iOS (Apple) - Atualizado para coincidir com a pasta icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
 </head>
 
 <body>
@@ -344,6 +345,16 @@
 
 </footer>
 
+<!-- Script para registrar o Service Worker (Essencial para PWA e APK) -->
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('Service Worker registrado!', reg))
+                .catch(err => console.log('Erro ao registrar Service Worker', err));
+        });
+    }
+</script>
 
 </body>
 
